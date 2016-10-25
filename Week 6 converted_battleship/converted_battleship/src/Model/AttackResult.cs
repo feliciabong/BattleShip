@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
+using SwinGameSDK;
 /// <summary>
 /// AttackResult gives the result after a shot has been made.
 /// </summary>
