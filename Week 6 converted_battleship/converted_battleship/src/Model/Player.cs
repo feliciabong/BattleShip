@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
+using SwinGameSDK;
 /// <summary>
 /// Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
 /// all ships are deployed and if all ships are detroyed. A Player can also attach.
@@ -43,7 +44,7 @@ public class Player : IEnumerable<Ship>
 	public Player(BattleShipsGame controller)
 	{
 		_game = controller;
-    _playerGrid = new SeaGrid(_Ships);
+		_playerGrid = new SeaGrid(_Ships);
 
 		//for each ship add the ships name so the seagrid knows about them
 		foreach (ShipName name in Enum.GetValues(typeof(ShipName))) {
@@ -78,7 +79,7 @@ public class Player : IEnumerable<Ship>
 	}
 
 	public bool IsDestroyed {
-//Check if all ships are destroyed... -1 for the none ship
+		//Check if all ships are destroyed... -1 for the none ship
 		get { return _playerGrid.ShipsKilled == Enum.GetValues(typeof(ShipName)).Length - 1; }
 	}
 
@@ -179,23 +180,40 @@ public class Player : IEnumerable<Ship>
 	/// <returns>the result of the attack</returns>
 	internal AttackResult Shoot(int row, int col)
 	{
-		_shots += 1;
+
 		AttackResult result = default(AttackResult);
 		result = EnemyGrid.HitTile(row, col);
 
 		switch (result.Value) {
-			case ResultOfAttack.Destroyed:
-			case ResultOfAttack.Hit:
-				_hits += 1;
-				break;
-			case ResultOfAttack.Miss:
-				_misses += 1;
-				break;
+		case ResultOfAttack.Destroyed:
+		case ResultOfAttack.Hit:
+			_shots += 1;
+			_hits += 1;
+			break;
+		case ResultOfAttack.Miss:
+			_shots += 1;
+			_misses += 1;
+			break;
 		}
 
 		return result;
 	}
-
+	//Added By SzeSan
+	public void IsTheShipDestroped(){
+		string msg = "";
+		foreach (Ship s in _playerGrid.DestroyedShip)
+		{
+			if (msg == "")
+				msg = s.Name.ToString ();
+			else
+				msg = msg + "," + s.Name.ToString ();
+		}
+		UtilityFunctions.Somemessage = msg;
+	}
+	public int ShipCount
+	{
+		get{return _playerGrid.DestroyedShip.Count;}
+	}
 	public virtual void RandomizeDeployment()
 	{
 		bool placementSuccessful = false;
