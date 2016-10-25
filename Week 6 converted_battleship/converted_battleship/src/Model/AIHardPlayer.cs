@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
+using SwinGameSDK;
 /// <summary>
 /// AIHardPlayer is a type of player. This AI will know directions of ships
 /// when it has found 2 ship tiles and will try to destroy that ship. If that ship
@@ -111,15 +112,15 @@ public class AIHardPlayer : AIPlayer
 			//check which state the AI is in and uppon that choose which coordinate generation
 			//method will be used.
 			switch (_CurrentState) {
-				case AIStates.Searching:
-					SearchCoords(ref row, ref column);
-					break;
-				case AIStates.TargetingShip:
-				case AIStates.HittingShip:
-					TargetCoords(ref row, ref column);
-					break;
-				default:
-					throw new ApplicationException("AI has gone in an invalid state");
+			case AIStates.Searching:
+				SearchCoords(ref row, ref column);
+				break;
+			case AIStates.TargetingShip:
+			case AIStates.HittingShip:
+				TargetCoords(ref row, ref column);
+				break;
+			default:
+				throw new ApplicationException("AI has gone in an invalid state");
 			}
 
 		} while ((row < 0 || column < 0 || row >= EnemyGrid.Height || column >= EnemyGrid.Width || EnemyGrid[row, column] != TileView.Sea));
@@ -164,17 +165,17 @@ public class AIHardPlayer : AIPlayer
 	protected override void ProcessShot(int row, int col, AttackResult result)
 	{
 		switch (result.Value) {
-			case ResultOfAttack.Miss:
-				_CurrentTarget = null;
-				break;
-			case ResultOfAttack.Hit:
-				ProcessHit(row, col);
-				break;
-			case ResultOfAttack.Destroyed:
-				ProcessDestroy(row, col, result.Ship);
-				break;
-			case ResultOfAttack.ShotAlready:
-				throw new ApplicationException("Error in AI");
+		case ResultOfAttack.Miss:
+			_CurrentTarget = null;
+			break;
+		case ResultOfAttack.Hit:
+			ProcessHit(row, col);
+			break;
+		case ResultOfAttack.Destroyed:
+			ProcessDestroy(row, col, result.Ship);
+			break;
+		case ResultOfAttack.ShotAlready:
+			throw new ApplicationException("Error in AI");
 		}
 
 		if (_Targets.Count == 0)
@@ -231,7 +232,7 @@ public class AIHardPlayer : AIPlayer
 	/// RemoveShotsAround will remove targets that belong to the destroyed ship by checking if
 	/// the source of the targets belong to the destroyed ship. If they don't put them on a new stack.
 	/// Then clear the targets stack and move all the targets that still need to be shot at back
-	/// onto the targets stack
+	/// onto the targets stacks
 	/// </summary>
 	/// <param name="toRemove"></param>
 	private void RemoveShotsAround(Location toRemove)
