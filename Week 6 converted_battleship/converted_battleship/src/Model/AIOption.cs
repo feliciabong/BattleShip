@@ -8,6 +8,7 @@ using System.Diagnostics;
 /// <summary>
 /// The different AI levels.
 /// </summary>
+using SwinGameSDK;
 public enum AIOption
 {
 	/// <summary>
