@@ -7,12 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using SwinGameSDK;
 
-/// <summary>
-using System.Collections.Generic;
-//using System.Data;
-using System.Diagnostics;
-using System.IO;
-using SwinGameSDK;
+
 
 /// <summary>
 /// Controls displaying and collecting high score data.
@@ -22,9 +17,9 @@ using SwinGameSDK;
 /// </remarks>
 static class HighScoreController
 {
-	private const int NAME_WIDTH = 4; //the constant changes the values of the highscores to 4 digits, was 3 previously
-
-	private const int SCORES_LEFT = 350;
+	private const int NAME_WIDTH = 4; //the number changes the value of the highscores to 4 digits, was 3 previously
+	private const int SCORES_LEFT = 490;
+	//private const int SCORES_LEFT = 350;
 	/// <summary>
 	/// The score structure is used to keep the name and
 	/// score of the top players together.
@@ -132,7 +127,8 @@ static class HighScoreController
 			LoadScores();
 
 		SwinGame.FillRectangle (SwinGame.RGBAColor(0,0,0,50), SCORES_LEFT-20, SCORES_TOP-50, 150, 350);
-		SwinGame.DrawRectangle (Color.Gray, SCORES_LEFT - 20, SCORES_TOP - 50, 150, 350);
+		//SwinGame.DrawRectangle (Color.White, SCORES_LEFT - 100, SCORES_TOP - 50, 50, 350);
+		//SwinGame.DrawRectangle (Color.White, SCORES_LEFT - 20, SCORES_TOP - 50, 150, 350);
 		SwinGame.DrawText("   High Scores   ", Color.White, GameResources.GameFont("Courier"), SCORES_LEFT, SCORES_HEADING);
 
 		//For all of the scores
