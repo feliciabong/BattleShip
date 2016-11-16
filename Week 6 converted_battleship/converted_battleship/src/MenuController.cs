@@ -41,10 +41,10 @@ static class MenuController
 		}
 
 	};
-	private const int MENU_TOP = 575;
-	private const int MENU_LEFT = 30;
-	private const int MENU_GAP = 10;
-	private const int BUTTON_WIDTH = 70;
+	private const int MENU_TOP = 500;
+	private const int MENU_LEFT = 170;
+	private const int MENU_GAP = 1;
+	private const int BUTTON_WIDTH = 110;
 	private const int BUTTON_HEIGHT = 15;
 	private const int BUTTON_SEP = BUTTON_WIDTH + MENU_GAP;
 
@@ -62,9 +62,9 @@ static class MenuController
 	private const int SETUP_MENU_MEDIUM_BUTTON = 1;
 	private const int SETUP_MENU_HARD_BUTTON = 2;
 
-	private const int SETUP_MENU_EXIT_BUTTON = 6;
-	private const int GAME_MENU_RETURN_BUTTON = 3;
-	private const int GAME_MENU_SURRENDER_BUTTON = 10;
+	private const int SETUP_MENU_EXIT_BUTTON = 3;
+	private const int GAME_MENU_RETURN_BUTTON = 0;
+	private const int GAME_MENU_SURRENDER_BUTTON = 1;
 
 	private const int GAME_MENU_QUIT_BUTTON = 2;
 	private static readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
