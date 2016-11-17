@@ -20,31 +20,23 @@ namespace BattleShips
 		}
 
 		[Test()]
-		public void TestForShipThatHasBeenSelected ()
+		public void TestMouseClickPositionSyncsWithPositionClicked ()
 		{
-			//default selection of ship is 'tug'
-			Assert.IsTrue (DeploymentController.SelectedShip == ShipName.Tug);
-			Assert.IsFalse (DeploymentController.SelectedShip == ShipName.Submarine);
-
-			//the name of the ship occupying 2 rows is the 'submarine'
-			DeploymentController.ShipSelection (2);
-			Assert.IsTrue (DeploymentController.SelectedShip == ShipName.Submarine);
-			Assert.IsFalse (DeploymentController.SelectedShip == ShipName.Tug);
-
-			//the name of the ship occupying 3 rows is the 'destroyer'
-			DeploymentController.ShipSelection (3);
-			Assert.IsTrue (DeploymentController.SelectedShip == ShipName.Destroyer);
-			Assert.IsFalse (DeploymentController.SelectedShip == ShipName.Submarine);
-
-			//the name of the ship occupying 4 rows is the 'battleship'
-			DeploymentController.ShipSelection (4);
-			Assert.IsTrue (DeploymentController.SelectedShip == ShipName.Battleship);
-			Assert.IsFalse (DeploymentController.SelectedShip == ShipName.Destroyer);
-
-			//the name of the ship occupying 5 rows is the 'aircraftcarrier'
-			DeploymentController.ShipSelection (5);
-			Assert.IsTrue (DeploymentController.SelectedShip == ShipName.AircraftCarrier);
-			Assert.IsFalse (DeploymentController.SelectedShip == ShipName.Battleship);
+			Point2D mouse = SwinGame.MousePosition ();
+			int row = 0;
+			int col = 0;
+			mouse.Y = 280;
+			mouse.X = 560;
+			row = Convert.ToInt32(Math.Floor((mouse.Y - UtilityFunctions.FIELD_TOP) / (UtilityFunctions.CELL_HEIGHT + UtilityFunctions.CELL_GAP)));
+			col = Convert.ToInt32(Math.Floor((mouse.X - UtilityFunctions.FIELD_LEFT) / (UtilityFunctions.CELL_WIDTH + UtilityFunctions.CELL_GAP)));
+			if (row >= 0 & row < 40)
+			{
+				if (col >= 0 & col < 40)
+				{
+					UtilityFunctions.Message = "The ship is deployed";
+				}
+			}
+			Assert.IsTrue(UtilityFunctions.Message == "The ship is deployed");
 		}
 	}
 }
